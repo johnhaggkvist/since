@@ -11,6 +11,10 @@ app.controller('SinceCtrl', function SinceCtrl($scope, moment, LS) {
   $scope.update = function (item) {
     $scope.items = LS.addItem(item, {text: item, since: new Date().getTime()});
   };
+
+  $scope.remove = function (item) {
+    $scope.items = LS.removeItem(item);
+  }
 });
 
 app.value('moment', moment);
@@ -33,6 +37,12 @@ app.factory('LS', function (localStorage) {
     addItem: function (text, item) {
       var items = _getItems();
       items[text] = item;
+      localStorage.setItem(itemsKey, JSON.stringify(items));
+      return this.getItems();
+    },
+    removeItem: function (text) {
+      var items = _getItems();
+      delete items[text];
       localStorage.setItem(itemsKey, JSON.stringify(items));
       return this.getItems();
     } 
