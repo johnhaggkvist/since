@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app="since">
+  <head>
+    <script src="js/angular.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/since.js"></script>
+    <link rel="stylesheet" href="css/since.css">
+    <title>Since</title>
+  </head>
+  <body>
+    <h2>Since</h2>
+    <div ng-controller="SinceCtrl">
+      <ul>
+        <li ng-repeat="item in items | orderBy:'since'">
+          <button ng-click="update(item.text)">{{item.text}}</button>
+          <span>since {{item.since | timeAgo}}</span>
+        </li>
+      </ul>
+      <form ng-submit="addItem()">
+        <input type="text" ng-model="pendingText" size="30"
+               placeholder="Track a new item!">
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+    </div>
+  </body>
+</html>
